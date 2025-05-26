@@ -1,0 +1,82 @@
+{
+  "bazpors": {
+    "name": "بازپرس",
+    "icon":"bazpors.png",
+    "roles": {
+      "10": [
+        { "name": "رییس مافیا", "team": "مافیا", "image": "https://whitesho.com/imgs/newroles/S5GodFatherNew.webp" },
+        { "name": "شیاد ", "team": "مافیا", "image": "https://whitesho.com/imgs/newroles/S5ShayadNew.webp" },
+        { "name": "ناتو ", "team": "مافیا", "image": "https://whitesho.com/imgs/newroles/S5NatoNew.webp" },
+        { "name": "بازپرس", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S5BazporsNew.webp" },
+        { "name": "دکتر", "team": "شهروند", "image": "ddr.png" },
+        { "name": "کارآگاه", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S5DetectorNew.webp" },
+        { "name": "رویین تن", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S5RooyintanNew.webp" },
+        { "name": "شهروند ساده", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S2CityNew.webp" },
+        { "name": "شهروند ساده", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S2CityNew.webp" },
+        { "name": "هانتر(محقق)", "team": "شهروند", "image": "https://whitesho.com/imgs/newroles/S5MohagheghNew.webp" }
+      ],
+      "13": [
+        { "name": "رییس مافیا", "team": "مافیا", "image": "roles/mafia_boss.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "بازپرس", "team": "شهروند", "image": "roles/detective.png" },
+        { "name": "دکتر", "team": "شهروند", "image": "roles/doctor.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" }
+      ],
+      "15": [
+        { "name": "رییس مافیا", "team": "مافیا", "image": "roles/mafia_boss.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "بازپرس", "team": "شهروند", "image": "roles/detective.png" },
+        { "name": "دکتر", "team": "شهروند", "image": "roles/doctor.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" }
+      ]
+    }
+  },
+   "kapo": {
+    "name": "کاپو",
+    "roles": {
+      "10": [
+        { "name": "رییس مافیا", "team": "مافیا", "image": "roles/mafia_boss.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "بازپرس", "team": "شهروند", "image": "dete.png" },
+        { "name": "دکتر", "team": "شهروند", "image": "ddr.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" }
+      ],
+      "13": [
+        { "name": "رییس مافیا", "team": "مافیا", "image": "roles/mafia_boss.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "مافیا ساده", "team": "مافیا", "image": "roles/mafia.png" },
+        { "name": "بازپرس", "team": "شهروند", "image": "roles/detective.png" },
+        { "name": "دکتر", "team": "شهروند", "image": "roles/doctor.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" },
+        { "name": "شهروند", "team": "شهروند", "image": "roles/citizen.png" }
+      ]
+    }
+  }
+}

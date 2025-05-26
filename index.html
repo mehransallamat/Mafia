@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" type="text/css" /> 
+  <title>تخصیص نقش</title>
+  <style>
+    @font-face {
+      font-family: 'Vazir';
+      src: url('font/Vazir-Black.woff2') format('woff2');
+      src: url('font/Vazir-Black.woff') format('woff');
+        src: url('font/Vazir-Black.ttf') format('ttf');
+    }
+     .sahelbold {
+	font-family: Sahel;
+	font-weight: bold;
+}
+    body {
+      font-family: Sahel, sans-serif,'Vazir';
+      background: linear-gradient(to bottom, #fff, #fff);
+      color: black;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 40px;
+    }
+    button, input {
+        font-family: Sahel;
+        font-weight: bold;
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    #team-info {
+  font-family: Sahel;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 15px;
+  color: black;
+}
+
+#scenario-buttons {
+    direction: rtl;
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; /* برای راست‌چین بودن */
+  flex-wrap: wrap; /* اگر جا نشه، بره خط بعد */
+  gap: 1px; /* فاصله بین دکمه‌ها */
+  user-select: none;
+}
+.scenario-btn {
+
+  display: flex; /* این خط باید درست باشه */
+  flex-direction: row; /* برای افقی نگه داشتن محتوا */
+  align-items: center;
+  justify-content: center;
+  font-family: Sahel;
+  font-size: 20px;
+  background: none;
+  color: black;
+  padding: 1px;
+  margin: 0px;
+
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+}
+ 
+    .scenario-btn img {
+      width: 150px;
+      height: 150px;
+      
+    }
+    .scenario img:focus {
+  outline: none;
+}
+    .pulse {
+      animation: pulse 0.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    #reshuffle-btn{
+        font-family: Sahel;
+    }
+    .role-card {
+        
+      max-width: 100%;
+      margin: 0;
+      border-radius: 20px;
+      overflow: cover;
+      position: relative;
+      top:70px;
+     
+      
+    }
+    .team-citizen { background: none; }
+    .team-mafia { background: none; }
+    img.role-image {
+      width: 50%;
+      height: 400px;
+      border-radius: 30px 30px 20px 20px;
+     
+
+
+    }
+
+    .seat-text {
+        font-family:'Vazir';
+        padding-top: 0px;
+      font-size: 20px;
+      margin-top: 1px;
+    }
+    .seat-text span {
+      font-family:"Lucida Console", "Courier New", monospace;
+      color: red;
+      font-size: 50px;
+      font-weight: bold;
+    }
+    .role-banner {
+     font-family: Sahel;
+     font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      color: #fff;
+      font-size: 20px;
+      
+      padding: 18 0 0 0;
+      text-align: center;
+      border-radius: 0 0 40px 20px;
+      z-index: 2;
+    }
+    .role-banner.citizen {
+      background: rgba(0, 70, 140, 0.8);
+    }
+    .role-banner.mafia {
+      background: rgba(120, 30, 30, 0.8);
+    }
+    #summary-table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      font-family: "Vazir";
+    }
+    #summary-table th, #summary-table td {
+      padding: 12px;
+      font-size: 16px;
+    }
+    #summary-table th {
+      background-color: #444;
+      color: white;
+    }
+    .citizen-row {
+      background-color: #fff;
+    }
+    .mafia-row {
+        
+      background-color: #660000;
+     color:white; 
+    }
+    #summary-table tr:hover {
+      filter: brightness(1.15);
+    }
+
+    /* Overlay and Modal */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+    }
+
+    #player-count-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease-out;
+      text-align: center;
+    }
+
+    #player-count-modal h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+  #player-count-modal button {
+  background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+  border: 2px solid #ccc;
+  color: #333;
+  font-weight: bold;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px #999;
+  transition: all 0.2s ease-in-out;
+}
+
+#player-count-modal button:hover {
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+}
+
+#player-count-modal button:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+    #modal-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    .three-d-button {
+  background: linear-gradient(to bottom, #4CAF50, #2E7D32); /* رنگ سبز ۳بعدی */
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px #1b5e20;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.three-d-button:hover {
+  background: linear-gradient(to bottom, #66bb6a, #388e3c);
+}
+
+.three-d-button:active {
+  box-shadow: 0 2px #1b5e20;
+  transform: translateY(3px);
+}
+.three-d-button.selected {
+  background: linear-gradient(to bottom, #1de9b6, #00bfa5);
+  box-shadow: 0 8px 16px rgba(0, 191, 165, 0.6);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+    @media screen and (min-width: 768px) {
+  .scenario-btn img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .seat-text {
+    font-size: 22px;
+  }
+  .seat-text span {
+    font-size: 50px;
+  }
+  #summary-table th, #summary-table td {
+    font-size: 16px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>انتخاب سناریو</h1>
+    <div id="scenario-buttons"></div>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay"></div>
+
+  <!-- Player Count Modal -->
+  <div id="player-count-modal">
+    <span id="modal-close" onclick="closeModal()">×</span>
+    <h2>تعداد بازیکنان را انتخاب کنید:</h2>
+    <button onclick="startGameFromModal(10)">۱۰ بازیکن</button>
+    <button onclick="startGameFromModal(13)">۱۳ بازیکن</button>
+  </div>
+
+  <div id="role-display" style="display:none">
+      
+      <div id="game-info" style="display:none; font-family: Sahel; font-size: 20px; font-weight: bold; color: #333; margin-top: 20px;"></div>
+      
+   
+    <div id="card" class="pulse">
+     <div class="seat-text" style="margin-top:30px;display:non">شماره شما: <span id="seat-number"></span></div>       
+      <img id="card-image" src="mask.png" style="width:300px;" />
+    
+ </div>
+    <div id="next-section" style="display:none">
+      <div class="role-card" id="role-card">
+        <div id="team-info"></div>
+        <div class="role-banner" id="role-banner">نام نقش</div>
+        <img class="role-image" id="role-image" src="" />
+      </div>
+      
+      <button id="next-btn" style='font-family:Sahel;margin-top:20%;font-weight:bold;';>نفر بعدی</button>
+    </div>
+    <button id="show-summary-btn" style="margin-top:20%;display:none;">مشاهده جدول نقش‌ها</button>
+    <button id="btn-10" class="three-d-button" onclick="startGameFromModal(10)">۱۰ نفره</button>
+   
+<button id="btn-13" class="three-d-button" onclick="startGameFromModal(13)" >۱۳ نفره</button>
+    <button id="reshuffle-btn" class="three-d-button">تقسیم‌بندی مجدد</button>
+  </div>
+
+  <div id="summary-section" style="display:none">
+    <h2>خلاصه نقش‌ها</h2>
+    <table id="summary-table">
+      <thead>
+        <tr>
+          <th>صندلی</th>
+          <th>نقش</th>
+          <th>تیم</th>
+        </tr>
+      </thead>
+      <tbody id="summary-body"></tbody>
+    </table>
+    <button id="reshuffle-btn2" class="three-d-button">تقسیم‌بندی مجدد</button>
+  </div>
+
+  <script>
+    let scenarios = {};
+    let selectedScenario = null;
+    let roles = [];
+    let seatNumbers = [];
+    let currentPlayer = 0;
+
+    fetch('roles.json')
+      .then(res => res.json())
+      .then(data => {
+        scenarios = data;
+        const container = document.getElementById('scenario-buttons');
+        Object.keys(data).forEach(key => {
+          const btn = document.createElement('button');
+          btn.className = 'scenario-btn';
+          btn.innerHTML = `<img src="${data[key].icon}" alt="icon" /> `;
+        // btn.innerHTML = `${data[key].name}`;
+          btn.onclick = () => showCountModal(key);
+          container.appendChild(btn);
+        });
+      });
+
+    function showCountModal(key) {
+      selectedScenario = key;
+      document.getElementById('modal-overlay').style.display = 'block';
+      document.getElementById('player-count-modal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+      document.getElementById('player-count-modal').style.display = 'none';
+    }
+
+    function startGameFromModal(count) {
+      closeModal();
+      startGame(count);
+    }
+function startGame(count) {
+  const scenario = scenarios[selectedScenario];
+  const roleSet = scenario.roles[count];
+  roles = shuffle([...roleSet]);
+  seatNumbers = shuffle([...Array(count).keys()].map(n => n + 1));
+  currentPlayer = 0;
+
+  document.querySelector('.container').style.display = 'none';
+
+  // نمایش اطلاعات سناریو
+  document.getElementById('game-info').style.display = 'block';
+  document.getElementById('game-info').innerHTML = `سناریو: <span style="color:red">${scenario.name}</span> | تعداد بازیکنان: <span style="color:red">${count}</span>`;
+  
+  // حذف انتخاب از همه دکمه‌ها
+  document.querySelectorAll('.three-d-button').forEach(btn => btn.classList.remove('selected'));
+  
+  // افزودن کلاس انتخاب به دکمه کلیک‌شده
+  document.getElementById('btn-' + count).classList.add('selected');
+
+  
+ 
+  document.getElementById('role-display').style.display = 'block';
+  
+  showCard();
+}
+    
+
+    function showCard() {
+      document.getElementById('next-section').style.display = 'none';
+      
+      document.getElementById('card').style.display = 'block';
+      document.getElementById('game-info').style.display = 'block';
+ document.getElementById('reshuffle-btn').style.display = 'inline-block';
+ 
+ 
+      document.getElementById('seat-number').textContent = seatNumbers[currentPlayer];
+    }
+
+    document.getElementById('card').onclick = () => {
+      const role = roles[currentPlayer];
+      document.getElementById('role-image').src = role.image;
+      document.getElementById('game-info').style.display = 'none';
+     document.getElementById('btn-10').style.display = 'none';
+document.getElementById('btn-13').style.display = 'none';
+      document.getElementById('team-info').textContent = 'تیم شما: ' + role.team;
+      document.getElementById('role-card').className = 'role-card ' + (role.team === 'مافیا' ? 'team-mafia' : 'team-citizen');
+      const banner = document.getElementById('role-banner');
+      
+      banner.textContent = role.name;
+      banner.className = 'role-banner ' + (role.team === 'مافیا' ? 'mafia' : 'citizen');
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('reshuffle-btn').style.display = 'none';
+      document.getElementById('next-section').style.display = 'block';
+      if (currentPlayer === roles.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        
+        document.getElementById('reshuffle-btn').style.display = 'inline-block';
+        document.getElementById('show-summary-btn').style.display = 'inline-block';
+      }
+    };
+
+    document.getElementById('next-btn').onclick = () => {
+      currentPlayer++;
+      if (currentPlayer < roles.length) {
+        // shuffle نقش‌های باقی‌مانده
+        const remaining = roles.slice(currentPlayer);
+        roles = roles.slice(0, currentPlayer).concat(shuffle(remaining));
+      }
+     console.log('Roles after shuffle for remaining:', roles.slice(currentPlayer));
+      
+      document.getElementById('btn-10').style.display = 'inline-block';
+document.getElementById('btn-13').style.display = 'inline-block';
+      showCard();
+    };
+
+    document.getElementById('show-summary-btn').onclick = () => {
+      document.getElementById('role-display').style.display = 'none';
+      
+      showSummary();
+    };
+
+    document.getElementById('reshuffle-btn').onclick = () => location.reload();
+document.getElementById('reshuffle-btn2').onclick = () => location.reload();
+
+    function showSummary() {
+      document.getElementById('summary-section').style.display = 'block';
+      const tbody = document.getElementById('summary-body');
+      tbody.innerHTML = '';
+      let summaryData = roles.map((role, i) => ({
+        seat: seatNumbers[i],
+        name: role.name,
+        team: role.team
+      }));
+      summaryData.sort((a, b) => a.seat - b.seat);
+      summaryData.forEach(data => {
+        const tr = document.createElement('tr');
+        tr.className = data.team === 'مافیا' ? 'mafia-row' : 'citizen-row';
+        tr.innerHTML = `
+          <td>${data.seat}</td>
+          <td>${data.name}</td>
+          <td>${data.team}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+function resetGame() {
+  currentPlayer = 0;
+  roles = [];
+  seatNumbers = [];
+  
+  document.getElementById('role-display').style.display = 'none';
+  document.getElementById('summary-section').style.display = 'none';
+  document.getElementById('next-section').style.display = 'none';
+  document.getElementById('show-summary-btn').style.display = 'none';
+  document.getElementById('game-info').style.display = 'none';
+  document.getElementById('card').style.display = 'block';
+  document.getElementById('reshuffle-btn').style.display = 'inline-block';
+
+  // برای پاکسازی جدول خلاصه
+  document.getElementById('summary-body').innerHTML = '';
+
+  // بازگرداندن انتخاب سناریو
+  document.querySelector('.container').style.display = 'block';
+}
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  </script>
+</body>
+</html>
