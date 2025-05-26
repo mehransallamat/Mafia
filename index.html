@@ -326,7 +326,7 @@
         <img class="role-image" id="role-image" src="" />
       </div>
       
-      <button id="next-btn" style='font-family:Sahel;margin-top:20%;font-weight:bold;';>نفر بعدی</button>
+      <button id="next-btn" style='display:inline-block;font-family:Sahel;margin-top:20%;font-weight:bold;';>نفر بعدی</button>
     </div>
     <button id="show-summary-btn" style="margin-top:20%;display:none;">مشاهده جدول نقش‌ها</button>
     <button id="btn-10" class="three-d-button" onclick="startGameFromModal(10)">۱۰ نفره</button>
@@ -468,8 +468,8 @@ document.getElementById('btn-13').style.display = 'inline-block';
       showSummary();
     };
 
-    document.getElementById('reshuffle-btn').onclick = () => location.reload();
-document.getElementById('reshuffle-btn2').onclick = () => location.reload();
+    document.getElementById('reshuffle-btn').onclick = () => resetGame();
+document.getElementById('reshuffle-btn2').onclick = () => resetGame();
 
     function showSummary() {
       document.getElementById('summary-section').style.display = 'block';
@@ -500,6 +500,8 @@ function resetGame() {
   document.getElementById('role-display').style.display = 'none';
   document.getElementById('summary-section').style.display = 'none';
   document.getElementById('next-section').style.display = 'none';
+  document.getElementById('next-btn').style.display = '';
+  
   document.getElementById('show-summary-btn').style.display = 'none';
   document.getElementById('game-info').style.display = 'none';
   document.getElementById('card').style.display = 'block';
