@@ -1,525 +1,504 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" type="text/css" /> 
-  <title>تخصیص نقش</title>
+  <title>جدول پیشرفته با رتبه‌بندی</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    @font-face {
-      font-family: 'Vazir';
-      src: url('font/Vazir-Black.woff2') format('woff2');
-      src: url('font/Vazir-Black.woff') format('woff');
-        src: url('font/Vazir-Black.ttf') format('ttf');
-    }
-     .sahelbold {
-	font-family: Sahel;
-	font-weight: bold;
-}
     body {
-      font-family: Sahel, sans-serif,'Vazir';
-      background: linear-gradient(to bottom, #fff, #fff);
-      color: black;
+      font-family: "Vazirmatn", Tahoma, sans-serif;
+      background: #f9fafc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
       text-align: center;
-      margin: 0;
-      padding: 0;
+      margin-bottom: 10px;
     }
-    .container {
-      padding: 40px;
-    }
-    button, input {
-        font-family: Sahel;
-        font-weight: bold;
-      padding: 10px;
-      margin: 5px;
+
+    #clock {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 12px;
       font-size: 16px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-    }
-    #team-info {
-  font-family: Sahel;
-  font-weight: bold;
-  font-size: 20px;
-  margin-top: 15px;
-  color: black;
-}
-
-#scenario-buttons {
-    direction: rtl;
-  text-align: right;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end; /* برای راست‌چین بودن */
-  flex-wrap: wrap; /* اگر جا نشه، بره خط بعد */
-  gap: 1px; /* فاصله بین دکمه‌ها */
-  user-select: none;
-}
-.scenario-btn {
-
-  display: flex; /* این خط باید درست باشه */
-  flex-direction: row; /* برای افقی نگه داشتن محتوا */
-  align-items: center;
-  justify-content: center;
-  font-family: Sahel;
-  font-size: 20px;
-  background: none;
-  color: black;
-  padding: 1px;
-  margin: 0px;
-
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-
-}
- 
-    .scenario-btn img {
-      width: 150px;
-      height: 150px;
-      
-    }
-    .scenario img:focus {
-  outline: none;
-}
-    .pulse {
-      animation: pulse 0.5s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    #reshuffle-btn{
-        font-family: Sahel;
-    }
-    .role-card {
-        
-      max-width: 100%;
-      margin: 0;
-      border-radius: 20px;
-      overflow: cover;
-      position: relative;
-      top:70px;
-     
-      
-    }
-    .team-citizen { background: none; }
-    .team-mafia { background: none; }
-    img.role-image {
-      width: 50%;
-      height: 400px;
-      border-radius: 30px 30px 20px 20px;
-     
-
-
-    }
-
-    .seat-text {
-        font-family:'Vazir';
-        padding-top: 0px;
-      font-size: 20px;
-      margin-top: 1px;
-    }
-    .seat-text span {
-      font-family:"Lucida Console", "Courier New", monospace;
-      color: red;
-      font-size: 50px;
       font-weight: bold;
-    }
-    .role-banner {
-     font-family: Sahel;
-     font-weight: bold;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      color: #fff;
-      font-size: 20px;
-      
-      padding: 18 0 0 0;
-      text-align: center;
-      border-radius: 0 0 40px 20px;
-      z-index: 2;
-    }
-    .role-banner.citizen {
-      background: rgba(0, 70, 140, 0.8);
-    }
-    .role-banner.mafia {
-      background: rgba(120, 30, 30, 0.8);
-    }
-    #summary-table {
-      margin: 20px auto;
-      border-collapse: collapse;
-      width: 90%;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
-      font-family: "Vazir";
-    }
-    #summary-table th, #summary-table td {
-      padding: 12px;
-      font-size: 16px;
-    }
-    #summary-table th {
-      background-color: #444;
-      color: white;
-    }
-    .citizen-row {
-      background-color: #fff;
-    }
-    .mafia-row {
-        
-      background-color: #660000;
-     color:white; 
-    }
-    #summary-table tr:hover {
-      filter: brightness(1.15);
-    }
-
-    /* Overlay and Modal */
-    #modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      background: rgba(0,0,0,0.7);
       z-index: 999;
+      font-family: monospace;
     }
 
-    #player-count-modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 300px;
-      padding: 25px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      animation: fadeIn 0.3s ease-out;
+    #timer {
+      position: relative;
+      left: 50;
+      top: -40;
+      font-weight: bold;
       text-align: center;
+      margin: 1px auto 2px;
+      font-size: 20px;
+      color: #2c3e50;
+      width: 400px;
+      background: #e3f2fd;
+      border-radius: 12px;
+      padding: 1px 0;
+      box-shadow: 0 0 10px #90caf9;
     }
 
-    #player-count-modal h2 {
-      color: #fff;
-      margin-bottom: 20px;
+    .table-wrapper {
+      overflow-x: auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 10px;
+      max-width: 100%;
     }
 
-  #player-count-modal button {
-  background: linear-gradient(to bottom, #ffffff, #e0e0e0);
-  border: 2px solid #ccc;
-  color: #333;
-  font-weight: bold;
-  padding: 12px 20px;
-  font-size: 18px;
-  border-radius: 12px;
-  box-shadow: 0 4px #999;
-  transition: all 0.2s ease-in-out;
-}
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 700px;
+    }
 
-#player-count-modal button:hover {
-  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
-}
+    th, td {
+      padding: 1px;
+      text-align: center;
+      border-bottom: 4px solid #eee;
+    }
 
-#player-count-modal button:active {
-  box-shadow: 0 2px #666;
-  transform: translateY(2px);
-}
+    thead {
+      background: linear-gradient(800deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 5%, rgba(237, 221, 83, 1) 190%);
+    }
 
-    #modal-close {
-      position: absolute;
-      top: 8px;
-      right: 12px;
+    thead th input {
+      background: transparent;
+      border: none;
       color: white;
-      font-size: 22px;
+      font-weight: bold;
+      font-size: 15px;
+      text-align: center;
+      width: 100%;
+    }
+
+    tfoot td {
+      background: #d0f0d3;
+      font-weight: bold;
+      color: #2b6e2f;
+      border-top: 2px solid #c8e6c9;
+    }
+
+    .row-number {
+      background: #f1f8ff;
+      font-weight: bold;
+      color: #1565c0;
+      border-left: 3px solid #64b5f6;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      color: red;
+      padding: 6px 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+        color: black;
+      border-color: #42a5f5;
+      box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.2);
+      outline: none;
+    }
+
+    button {
+      background-color: #ef5350;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 15px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
-    .three-d-button {
-  background: linear-gradient(to bottom, #4CAF50, #2E7D32); /* رنگ سبز ۳بعدی */
-  color: white;
-  font-weight: bold;
-  padding: 12px 24px;
+    button:hover {
+      background-color: #d32f2f;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      padding: 20px 10px;
+      border-top: 1px solid #ddd;
+      background: #f1f1f1;
+      border-radius: 12px;
+    }
+
+    #ranking {
+      margin-top: 20px;
+      background: #fff3e0;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 0 10px #ffc107;
+      text-align: center;
+      font-weight: bold;
+      color: #ff6f00;
+      font-size: 18px;
+    }
+#numeric-keypad button {
   font-size: 18px;
+  padding: 8px;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 5px #1b5e20;
+  border-radius: 80px;
+  background: #90caf9;
+  color: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s;
 }
-
-.three-d-button:hover {
-  background: linear-gradient(to bottom, #66bb6a, #388e3c);
+#numeric-keypad button:hover {
+  background: #42a5f5;
 }
-
-.three-d-button:active {
-  box-shadow: 0 2px #1b5e20;
-  transform: translateY(3px);
-}
-.three-d-button.selected {
-  background: linear-gradient(to bottom, #1de9b6, #00bfa5);
-  box-shadow: 0 8px 16px rgba(0, 191, 165, 0.6);
-  transform: scale(1.05);
-  transition: all 0.3s ease;
-}
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -60%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
+    @media (max-width: 600px) {
+      table {
+        font-size: 14px;
+        min-width: 100%;
+      }
+      input[type="number"] {
+        font-size: 14px;
+      }
+      thead th input {
+        font-size: 13px;
+      }
+      #clock {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+      #timer {
+        font-size: 16px;
+        max-width: 150px;
+        padding: 8px 0;
+      }
     }
-    @media screen and (min-width: 768px) {
-  .scenario-btn img {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .seat-text {
-    font-size: 22px;
-  }
-  .seat-text span {
-    font-size: 50px;
-  }
-  #summary-table th, #summary-table td {
-    font-size: 16px;
-  }
-}
-
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>انتخاب سناریو</h1>
-    <div id="scenario-buttons"></div>
+
+  <h2>امتیازدهی پیشرفته</h2>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <label style="font-weight: bold;">نوع امتیازدهی:</label>
+    <select id="modeSelector" onchange="onModeChange()" style="font-size: 16px; padding: 5px 10px; border-radius: 8px;">
+      <option value="single">تکی</option>
+      <option value="team">تیمی</option>
+    </select>
   </div>
 
-  <!-- Modal Overlay -->
-  <div id="modal-overlay"></div>
+  
 
-  <!-- Player Count Modal -->
-  <div id="player-count-modal">
-    <span id="modal-close" onclick="closeModal()">×</span>
-    <h2>تعداد بازیکنان را انتخاب کنید:</h2>
-    <button onclick="startGameFromModal(10)">۱۰ بازیکن</button>
-    <button onclick="startGameFromModal(13)">۱۳ بازیکن</button>
-  </div>
-
-  <div id="role-display" style="display:none">
-      
-      <div id="game-info" style="display:none; font-family: Sahel; font-size: 20px; font-weight: bold; color: #333; margin-top: 20px;"></div>
-      
-   
-    <div id="card" class="pulse">
-     <div class="seat-text" style="margin-top:30px;display:non">شماره شما: <span id="seat-number"></span></div>       
-      <img id="card-image" src="mask.png" style="width:300px;" />
-    
- </div>
-    <div id="next-section" style="display:none">
-      <div class="role-card" id="role-card">
-        <div id="team-info"></div>
-        <div class="role-banner" id="role-banner">نام نقش</div>
-        <img class="role-image" id="role-image" src="" />
-      </div>
-      
-      <button id="next-btn" style='display:inline-block;font-family:Sahel;margin-top:20%;font-weight:bold;';>نفر بعدی</button>
-    </div>
-    <button id="show-summary-btn" style="margin-top:20%;display:none;">مشاهده جدول نقش‌ها</button>
-    <button id="btn-10" class="three-d-button" onclick="startGameFromModal(10)">۱۰ نفره</button>
-   
-<button id="btn-13" class="three-d-button" onclick="startGameFromModal(13)" >۱۳ نفره</button>
-    <button id="reshuffle-btn" class="three-d-button">تقسیم‌بندی مجدد</button>
-  </div>
-
-  <div id="summary-section" style="display:none">
-    <h2>خلاصه نقش‌ها</h2>
-    <table id="summary-table">
+  <div class="table-wrapper">
+    <table>
       <thead>
-        <tr>
-          <th>صندلی</th>
-          <th>نقش</th>
-          <th>تیم</th>
+        <tr id="header-row">
+          <th>ردیف</th>
         </tr>
       </thead>
-      <tbody id="summary-body"></tbody>
+      <tbody id="tbody"></tbody>
+      <tfoot>
+        <tr id="sum-row">
+          <td class="row-number">جمع</td>
+        </tr>
+        <tr id="rank-row">
+          <td class="row-number">رتبه</td>
+        </tr>
+      </tfoot>
     </table>
-    <button id="reshuffle-btn2" class="three-d-button">تقسیم‌بندی مجدد</button>
+
+    <div style="text-align: left; margin-bottom: 1px;">
+      <button onclick="clearTable()">پاکسازی جدول</button>
+    </div>
+    <div id="timer">زمان: ۰۰:۰۰:۰۰</div>
   </div>
+<div id="numeric-keypad" style="display:none; position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
+  background: #fff; border-radius: 12px; padding: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index: 1000; text-align: center;">
+  <div style="display: grid; grid-template-columns: repeat(3, 50px); gap: 10px; margin-bottom: 10px;">
+    <button onclick="keypadPress('1')">1</button>
+    <button onclick="keypadPress('2')">2</button>
+    <button onclick="keypadPress('3')">3</button>
+    <button onclick="keypadPress('4')">4</button>
+    <button onclick="keypadPress('5')">5</button>
+    <button onclick="keypadPress('6')">6</button>
+    <button onclick="keypadPress('7')">7</button>
+    <button onclick="keypadPress('8')">8</button>
+    <button onclick="keypadPress('9')">9</button>
+    <button onclick="keypadPress('0')">0</button>
+    <button onclick="keypadPress('+')">+</button>
+    <button onclick="keypadDelete()">⌫</button>
+  </div>
+  <button onclick="keypadClose()">بستن</button>
+</div>
+  <footer>
+    طراحی و توسعه توسط <strong>Mehran</strong> | 2025
+  </footer>
 
   <script>
-    let scenarios = {};
-    let selectedScenario = null;
-    let roles = [];
-    let seatNumbers = [];
-    let currentPlayer = 0;
+    const ROWS = 11;
+    let COLS = 4;
 
-    fetch('roles.json')
-      .then(res => res.json())
-      .then(data => {
-        scenarios = data;
-        const container = document.getElementById('scenario-buttons');
-        Object.keys(data).forEach(key => {
-          const btn = document.createElement('button');
-          btn.className = 'scenario-btn';
-          btn.innerHTML = `<img src="${data[key].icon}" alt="icon" /> `;
-        // btn.innerHTML = `${data[key].name}`;
-          btn.onclick = () => showCountModal(key);
-          container.appendChild(btn);
-        });
-      });
-
-    function showCountModal(key) {
-      selectedScenario = key;
-      document.getElementById('modal-overlay').style.display = 'block';
-      document.getElementById('player-count-modal').style.display = 'block';
+    function onModeChange() {
+      const mode = document.getElementById("modeSelector").value;
+      COLS = mode === "team" ? 2 : 4;
+      saveMode(mode);
+      createTable();
+      updateSums();
     }
 
-    function closeModal() {
-      document.getElementById('modal-overlay').style.display = 'none';
-      document.getElementById('player-count-modal').style.display = 'none';
+    function saveMode(mode) {
+      localStorage.setItem("tableMode", mode);
     }
 
-    function startGameFromModal(count) {
-      closeModal();
-      startGame(count);
-    }
-function startGame(count) {
-  const scenario = scenarios[selectedScenario];
-  const roleSet = scenario.roles[count];
-  roles = shuffle([...roleSet]);
-  seatNumbers = shuffle([...Array(count).keys()].map(n => n + 1));
-  currentPlayer = 0;
-
-  document.querySelector('.container').style.display = 'none';
-
-  // نمایش اطلاعات سناریو
-  document.getElementById('game-info').style.display = 'block';
-  document.getElementById('game-info').innerHTML = `سناریو: <span style="color:red">${scenario.name}</span> | تعداد بازیکنان: <span style="color:red">${count}</span>`;
-  
-  // حذف انتخاب از همه دکمه‌ها
-  document.querySelectorAll('.three-d-button').forEach(btn => btn.classList.remove('selected'));
-  
-  // افزودن کلاس انتخاب به دکمه کلیک‌شده
-  document.getElementById('btn-' + count).classList.add('selected');
-
-  
- 
-  document.getElementById('role-display').style.display = 'block';
-  
-  showCard();
-}
-    
-
-    function showCard() {
-      document.getElementById('next-section').style.display = 'none';
-      
-      document.getElementById('card').style.display = 'block';
-      document.getElementById('game-info').style.display = 'block';
- document.getElementById('reshuffle-btn').style.display = 'inline-block';
- 
- 
-      document.getElementById('seat-number').textContent = seatNumbers[currentPlayer];
+    function loadMode() {
+      const savedMode = localStorage.getItem("tableMode") || "single";
+      document.getElementById("modeSelector").value = savedMode;
+      COLS = savedMode === "team" ? 2 : 4;
     }
 
-    document.getElementById('card').onclick = () => {
-      const role = roles[currentPlayer];
-      document.getElementById('role-image').src = role.image;
-      document.getElementById('game-info').style.display = 'none';
-     document.getElementById('btn-10').style.display = 'none';
-document.getElementById('btn-13').style.display = 'none';
-      document.getElementById('team-info').textContent = 'تیم شما: ' + role.team;
-      document.getElementById('role-card').className = 'role-card ' + (role.team === 'مافیا' ? 'team-mafia' : 'team-citizen');
-      const banner = document.getElementById('role-banner');
-      
-      banner.textContent = role.name;
-      banner.className = 'role-banner ' + (role.team === 'مافیا' ? 'mafia' : 'citizen');
-      document.getElementById('card').style.display = 'none';
-      document.getElementById('reshuffle-btn').style.display = 'none';
-      document.getElementById('next-section').style.display = 'block';
-      if (currentPlayer === roles.length - 1) {
-        document.getElementById('next-btn').style.display = 'none';
-        
-        document.getElementById('reshuffle-btn').style.display = 'inline-block';
-        document.getElementById('show-summary-btn').style.display = 'inline-block';
-      }
-    };
+    function createTable() {
+      const tbody = document.getElementById('tbody');
+      const header = document.getElementById('header-row');
+      const sumRow = document.getElementById('sum-row');
+      const rankRow = document.getElementById('rank-row');
 
-    document.getElementById('next-btn').onclick = () => {
-      currentPlayer++;
-      if (currentPlayer < roles.length) {
-        // shuffle نقش‌های باقی‌مانده
-        const remaining = roles.slice(currentPlayer);
-        roles = roles.slice(0, currentPlayer).concat(shuffle(remaining));
-      }
-     console.log('Roles after shuffle for remaining:', roles.slice(currentPlayer));
-      
-      document.getElementById('btn-10').style.display = 'inline-block';
-document.getElementById('btn-13').style.display = 'inline-block';
-      showCard();
-    };
-
-    document.getElementById('show-summary-btn').onclick = () => {
-      document.getElementById('role-display').style.display = 'none';
-      
-      showSummary();
-    };
-
-    document.getElementById('reshuffle-btn').onclick = () => resetGame();
-document.getElementById('reshuffle-btn2').onclick = () => resetGame();
-
-    function showSummary() {
-      document.getElementById('summary-section').style.display = 'block';
-      const tbody = document.getElementById('summary-body');
       tbody.innerHTML = '';
-      let summaryData = roles.map((role, i) => ({
-        seat: seatNumbers[i],
-        name: role.name,
-        team: role.team
-      }));
-      summaryData.sort((a, b) => a.seat - b.seat);
-      summaryData.forEach(data => {
-        const tr = document.createElement('tr');
-        tr.className = data.team === 'مافیا' ? 'mafia-row' : 'citizen-row';
-        tr.innerHTML = `
-          <td>${data.seat}</td>
-          <td>${data.name}</td>
-          <td>${data.team}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-function resetGame() {
-  currentPlayer = 0;
-  roles = [];
-  seatNumbers = [];
-  
-  document.getElementById('role-display').style.display = 'none';
-  document.getElementById('summary-section').style.display = 'none';
-  document.getElementById('next-section').style.display = 'none';
-  document.getElementById('next-btn').style.display = '';
-  
-  document.getElementById('show-summary-btn').style.display = 'none';
-  document.getElementById('game-info').style.display = 'none';
-  document.getElementById('card').style.display = 'block';
-  document.getElementById('reshuffle-btn').style.display = 'inline-block';
+      header.innerHTML = '<th>ردیف</th>';
+      sumRow.innerHTML = '<td class="row-number">جمع</td>';
+      rankRow.innerHTML = '<td class="row-number">رتبه</td>';
 
-  // برای پاکسازی جدول خلاصه
-  document.getElementById('summary-body').innerHTML = '';
-
-  // بازگرداندن انتخاب سناریو
-  document.querySelector('.container').style.display = 'block';
-}
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+      for (let c = 1; c <= COLS; c++) {
+        const title = localStorage.getItem(`title-${c}`) || ` ${c}`;
+        header.innerHTML += `<th><input type="text" id="col-title-${c}" value="${title}" oninput="saveTitles()" /></th>`;
+        sumRow.innerHTML += `<td id="sum-${c}">۰</td>`;
+        rankRow.innerHTML += `<td id="rank-${c}"></td>`;
       }
-      return array;
+
+      for (let r = 1; r <= ROWS; r++) {
+        const tr = document.createElement('tr');
+
+        const tdNum = document.createElement('td');
+        tdNum.className = 'row-number';
+        tdNum.textContent = r;
+        tr.appendChild(tdNum);
+
+        for (let c = 1; c <= COLS; c++) {
+          const td = document.createElement('td');
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.readOnly = true; // برای جلوگیری از تایپ مستقیم
+        input.addEventListener('focus', () => {
+  activeInput = input;
+  document.getElementById('numeric-keypad').style.display = 'block';
+});
+          input.dataset.row = r;
+          input.dataset.col = c;
+          input.value = localStorage.getItem(`cell-${r}-${c}`) || '';
+          input.addEventListener('input', () => {
+            localStorage.setItem(`cell-${r}-${c}`, input.value);
+            updateSums();
+            checkAndStartTimer();
+          });
+          td.appendChild(input);
+          tr.appendChild(td);
+        }
+
+        tbody.appendChild(tr);
+      }
     }
+
+    function updateSums() {
+      const sums = [];
+
+      for (let c = 1; c <= COLS; c++) {
+        const inputs = document.querySelectorAll(`input[data-col="${c}"]`);
+        let sum = 0;
+
+        inputs.forEach(input => {
+          const raw = input.value.trim();
+          if (raw === "") return;if (/^0+$/.test(raw)) {
+  const zeroCount = raw.length;
+  sum += zeroCount * -100;
+        } else {
+          try {
+    // فقط اجازه‌ی اعداد و علائم + و - را می‌دهیم
+    const safeRaw = raw.replace(/[^0-9+\-]/g, '');
+    const val = eval(safeRaw);
+    if (!isNaN(val)) {
+      sum += val;
+    }
+  } catch (e) {
+    console.warn("خطای محاسبه در مقدار ورودی:", raw);
+  }
+}
+
+        });
+
+        sums.push({ col: c, total: sum });
+        document.getElementById(`sum-${c}`).textContent = sum.toLocaleString('fa-IR');
+      }
+
+      updateRanking(sums);
+    }
+
+    function updateRanking(sums) {
+      const sorted = [...sums].sort((a, b) => a.total - b.total);
+      const ranks = {};
+      sorted.forEach((item, index) => ranks[item.col] = index + 1);
+
+      for (let c = 1; c <= COLS; c++) {
+        const title = document.getElementById(`col-title-${c}`).value;
+        document.getElementById(`rank-${c}`).textContent = `رتبه ${ranks[c]}`;
+      }
+    }
+
+    function saveTitles() {
+  const keywordMap = {
+    "x": "Marco",
+    "z": "Ali",
+    "Klx": "kabotar",
+    "Tlh": "Tagi"
+    // هر کلمه‌ای که خواستی اینجا اضافه کن
+  };
+
+  for (let i = 1; i <= COLS; i++) {
+    const input = document.getElementById(`col-title-${i}`);
+    let title = input.value.trim();
+
+    if (keywordMap[title]) {
+      title = keywordMap[title];
+      input.value = title;
+    }
+
+    localStorage.setItem(`title-${i}`, title);
+  }
+
+  updateSums();
+}
+    function loadTitles() {
+      // handled inside createTable
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('fa-IR');
+      document.getElementById('clock').textContent = timeStr;
+    }
+
+    let startTime = null;
+    let timerInterval = null;
+
+    function isTableEmpty() {
+      for(let r=1; r<=ROWS; r++){
+        for(let c=1; c<=COLS; c++){
+          const val = localStorage.getItem(`cell-${r}-${c}`);
+          if(val && val.trim() !== "") return false;
+        }
+      }
+      return true;
+    }
+
+    function startTimer() {
+      if (!startTime) {
+        startTime = localStorage.getItem('tableStartTime');
+        if(startTime) startTime = parseInt(startTime);
+        else {
+          startTime = Date.now();
+          localStorage.setItem('tableStartTime', startTime);
+        }
+      }
+      if (!timerInterval) {
+        timerInterval = setInterval(updateTimer, 1000);
+      }
+    }
+
+    function resetTimer() {
+      startTime = null;
+      localStorage.removeItem('tableStartTime');
+      clearInterval(timerInterval);
+      timerInterval = null;
+      document.getElementById('timer').textContent = "زمان: ۰۰:۰۰:۰۰";
+    }
+
+    function updateTimer() {
+      if (!startTime) return;
+      const elapsed = Date.now() - startTime;
+      const totalSeconds = Math.floor(elapsed / 1000);
+      const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const s = String(totalSeconds % 60).padStart(2, '0');
+      document.getElementById('timer').textContent = `زمان: ${h}:${m}:${s}`;
+    }
+
+    function checkAndStartTimer() {
+      if (!isTableEmpty()) {
+        startTimer();
+      } else {
+        resetTimer();
+      }
+    }
+    let activeInput = null;
+
+function keypadPress(val) {
+  if (activeInput) {
+    activeInput.value += val;
+    activeInput.dispatchEvent(new Event('input'));
+  }
+}
+
+function keypadDelete() {
+  if (activeInput) {
+    activeInput.value = activeInput.value.slice(0, -1);
+    activeInput.dispatchEvent(new Event('input'));
+  }
+}
+
+function keypadClose() {
+  document.getElementById('numeric-keypad').style.display = 'none';
+  activeInput = null;
+}
+
+    function clearTable() {
+  if(confirm("آیا مطمئنید می‌خواهید جدول را پاک کنید؟")) {
+    // حذف مقادیر جدول
+    for(let r=1; r<=ROWS; r++){
+      for(let c=1; c<=COLS; c++){
+          localStorage.removeItem(`title-${c}`);
+        localStorage.removeItem(`cell-${r}-${c}`);
+      }
+    }
+
+    // حذف عنوان ستون‌ها
+
+    // ریست تایمر
+    resetTimer();
+
+    // بازسازی جدول
+    createTable();
+    updateSums();
+  }
+}
+
+    window.onload = () => {
+      loadMode();
+      createTable();
+      updateSums();
+      updateClock();
+      setInterval(updateClock, 1000);
+      checkAndStartTimer();
+    };
   </script>
 </body>
 </html>
